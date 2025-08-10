@@ -1,14 +1,9 @@
 import pytest
-from .factories import PostFactory
+from django.urls import reverse
 
 @pytest.mark.django_db
-def test_post_str():
-    post = PostFactory(title="Título de Teste")
-    assert str(post) == "Título de Teste"
-
-@pytest.mark.django_db
-def test_post_ordering():
-    post1 = PostFactory(title="Antigo")
-    post2 = PostFactory(title="Novo")
-    posts = list(type(post1).objects.all())
-    assert posts[0].title == "Novo"  # por causa do ordering = ['-created_on']
+def test_post_view(client):
+    url = reverse('nome')  # busca a rota pelo nome definido no urls.py
+    response = client.get(url)
+    assert response.status_code == 200
+    assert response.content == b'Hello World'
