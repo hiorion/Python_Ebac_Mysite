@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import PostView
+from . import views
 
 urlpatterns = [
-    path('post/', PostView.as_view(), name='nome'),  # 'nome' se conecta ao reverse() do teste
+    path('home/', views.post_list, name='home'),  # home listando posts
+    path('<slug:slug>/', views.post_detail, name='post_detail'),
 ]
